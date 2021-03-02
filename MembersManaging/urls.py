@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from MembersManaging import urls as MMUrls
-from django.contrib.auth import views as auth_views
-from home import urls as home_urls
+from .views import listMembers, createMember,  updateMember, deleteMember
+
+
+app_name = 'MembersManaging'
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('MembersManaging/',include(MMUrls)),
-    path('login/', auth_views.LoginView.as_view(), name = 'login'),
-    path('logout/', auth_views.LogoutView.as_view(), name = 'logout'), 
-    path('',include(home_urls)),
-    
+  path('list-users/', listMembers, name = 'list-users'),
+  path('create-user/', createMember, name = 'create-user'),
+  path('update-user/<int:id>', updateMember, name = 'changeuser'),
+  path('delete-user/<int:id>', deleteMember, name = 'deleteUser')
+  
 ]
